@@ -236,9 +236,625 @@ void explainvector(){
     // b → [7,8]
 
 }
-       
+void explainlist(){
+
+    // =========================================
+    // 1. WHAT IS LIST
+    // =========================================
+    // list → doubly linked list (NOT like vector)
+    // ✔ dynamic size
+    // ✔ elements NOT stored in contiguous memory
+    // ✔ fast insertion/deletion anywhere
+    // ✖ no direct index access (no ls[i])
+
+
+    // =========================================
+    // 2. DECLARATION
+    // =========================================
+
+    list<int> ls;     
+    // empty list → []
+
+
+    // =========================================
+    // 3. INSERTION
+    // =========================================
+
+    ls.push_back(2);     
+    // add at end → [2]
+
+    ls.push_front(1);    
+    // add at beginning → [1,2]
+
+    ls.push_back(3);     
+    // [1,2,3]
+
+    // ls.emplace_back(4);
+    // same as push_back → adds at end
+
+    // ls.emplace_front(0);
+    // same as push_front → adds at beginning
+
+
+    // =========================================
+    // 4. ACCESS
+    // =========================================
+
+    cout << ls.front();  
+    // first element → Output: 1
+
+    cout << ls.back();   
+    // last element → Output: 3
+
+    // ❌ ls[0] NOT allowed (no indexing in list)
+
+
+    // =========================================
+    // 5. TRAVERSAL
+    // =========================================
+
+    // (1) Using for-each loop
+    for(auto x : ls){
+        cout << x << " ";
+    }
+    // Output: 1 2 3
+
+
+    // (2) Using iterator
+    for(auto it = ls.begin(); it != ls.end(); it++){
+        cout << *it << " ";
+    }
+    // Output: 1 2 3
+
+
+    // =========================================
+    // 6. DELETE
+    // =========================================
+
+    ls.pop_back();    
+    // removes last → [1,2]
+
+    ls.pop_front();   
+    // removes first → [2]
+
+
+    // =========================================
+    // 7. INSERT USING ITERATOR
+    // =========================================
+
+    auto it = ls.begin();
+
+    ls.insert(it, 5);  
+    // insert before position of iterator
+    // result → [5,2]
+
+
+    // =========================================
+    // 8. ERASE
+    // =========================================
+
+    auto it2 = ls.begin();
+
+    ls.erase(it2);     
+    // removes element at iterator position
+    // result → [2]
+
+
+    // =========================================
+    // 9. SIZE
+    // =========================================
+
+    cout << ls.size();
+    // number of elements
+
+
+    // =========================================
+    // 10. CLEAR
+    // =========================================
+
+    ls.clear();
+    // removes all elements → []
+
+
+    // =========================================
+    // 11. EXTRA IMPORTANT
+    // =========================================
+
+    // ✔ push_front → available in list (not in vector)
+    // ✔ no random access → cannot use ls[i]
+    // ✔ traversal must use loop / iterator
+    // ✔ best when frequent insert/delete needed
+
+}   
+void explaindeque(){
+
+    // =========================================
+    // 1. WHAT IS DEQUE
+    // =========================================
+    // deque → double-ended queue
+    // ✔ dynamic size (like vector)
+    // ✔ insertion/deletion from BOTH ends
+    // ✔ random access allowed (like vector)
+    // ✔ faster than vector for front operations
+
+
+    // =========================================
+    // 2. DECLARATION
+    // =========================================
+
+    deque<int> dq;      
+    // empty → []
+
+    deque<int> dq2 = {1,2,3};
+    // [1,2,3]
+
+
+    // =========================================
+    // 3. INSERTION
+    // =========================================
+
+    dq.push_back(2);    
+    // [2]
+
+    dq.push_front(1);   
+    // [1,2]
+
+    dq.push_back(3);    
+    // [1,2,3]
+
+    // dq.emplace_back(4);   // same as push_back
+    // dq.emplace_front(0);  // same as push_front
+
+
+    // =========================================
+    // 4. ACCESS
+    // =========================================
+
+    cout << dq[0];      
+    // Output: 1
+
+    cout << dq.at(1);   
+    // Output: 2
+
+    cout << dq.front(); 
+    // Output: 1
+
+    cout << dq.back();  
+    // Output: 3
+
+
+    // =========================================
+    // 5. TRAVERSAL
+    // =========================================
+
+    // (1) for-each loop
+    for(auto x : dq){
+        cout << x << " ";
+    }
+    // Output: 1 2 3
+
+    // (2) iterator (your style)
+    for(auto it = dq.begin(); it < dq.end(); it++){
+        cout << *it << " ";
+    }
+    // Output: 1 2 3
+
+
+    // =========================================
+    // 6. DELETE
+    // =========================================
+
+    dq.pop_back();     
+    // [1,2]
+
+    dq.pop_front();    
+    // [2]
+
+
+    // =========================================
+    // 7. INSERT USING ITERATOR
+    // =========================================
+
+    deque<int> d = {7,8,1,2};
+
+    d.insert(d.begin()+1, 100);
+    // [7,100,8,1,2]
+
+
+    // =========================================
+    // 8. ERASE
+    // =========================================
+
+    d.erase(d.begin()+1);
+    // removes 100 → [7,8,1,2]
+
+    d.erase(d.begin()+1, d.end()-1);
+    // removes middle → [7,2]
+
+
+    // =========================================
+    // 9. SIZE
+    // =========================================
+
+    cout << d.size();
+
+
+    // =========================================
+    // 10. CLEAR
+    // =========================================
+
+    d.clear();
+    // []
+
+
+    // =========================================
+    // 11. EXTRA IMPORTANT
+    // =========================================
+
+    // ✔ supports push_front (like list)
+    // ✔ supports indexing (like vector)
+    // ✔ iterators support < (like vector)
+    // ✔ best when operations needed at both ends
+
+}
+void explainstack(){
+
+    // =========================================
+    // 1. WHAT IS STACK
+    // =========================================
+    // stack → LIFO (Last In First Out)
+
+
+    // =========================================
+    // 2. DECLARATION
+    // =========================================
+
+    stack<int> st;
+
+
+    // =========================================
+    // 3. INSERTION
+    // =========================================
+
+    st.push(1);
+    st.push(7);
+    st.push(71);
+
+    // st.emplace(73);
+    // same as push → adds element on top
+
+    st.push(17);
+    st.push(27);
+    // [1,7,71,73,17,27]
+
+
+    // =========================================
+    // 4. ACCESS
+    // =========================================
+
+    cout << st.top() << endl;
+    // Output: 27
+
+
+    // =========================================
+    // 5. SIZE
+    // =========================================
+
+    cout << st.size() << endl;
+    // Output: 6
+
+
+    // =========================================
+    // 6. DELETE (POP)
+    // =========================================
+
+    st.pop();
+    // removes 27 → [1,7,71,73,17]
+
+    cout << st.top() << endl;
+    // Output: 17
+
+
+    // =========================================
+    // 7. TRAVERSAL (WITHOUT COPY)
+    // =========================================
+    // ⚠️ This will EMPTY the stack
+
+    while(st.empty() == false){
+        cout << st.top() << " ";
+        st.pop();
+    }
+    // Output: 17 73 71 7 1
+
+
+    // =========================================
+    // 8. EMPTY
+    // =========================================
+
+    cout << st.empty();
+    // Output: 1 (true)
+
+
+    // =========================================
+    // 9. SWAP
+    // =========================================
+
+    stack<int> st1;
+    st1.push(100);
+    st1.push(200);
+
+    stack<int> st2;
+    st2.push(1);
+    st2.push(2);
+
+    swap(st1, st2);
+    // st1 → [1,2]
+    // st2 → [100,200]
+
+
+    // =========================================
+    // 10. IMPORTANT POINTS
+    // =========================================
+
+    // ✔ push / emplace → insert
+    // ✔ pop → remove top
+    // ✔ top → last element
+    // ✔ no indexing, no iterators
+    // ✔ traversal removes elements
+
+}
+void explainqueue(){
+
+    // =========================================
+    // 1. WHAT IS QUEUE
+    // =========================================
+    // queue → FIFO (First In First Out)
+    // first inserted element comes out first
+
+
+    // =========================================
+    // 2. DECLARATION
+    // =========================================
+
+    queue<int> q;
+    // empty queue
+
+
+    // =========================================
+    // 3. INSERTION
+    // =========================================
+
+    q.push(2);   
+    // [2]
+
+    q.push(22);  
+    // [2,22]
+
+    q.push(23);  
+    // [2,22,23]
+
+    q.push(24);  
+    // [2,22,23,24]
+
+    // q.emplace(30);
+    // same as push → adds at back
+
+
+    // =========================================
+    // 4. ACCESS
+    // =========================================
+
+    cout << q.front() << endl;
+    // first element → Output: 2
+
+    cout << q.back() << endl;
+    // last element → Output: 24
+
+
+    // =========================================
+    // 5. SIZE
+    // =========================================
+
+    cout << q.size() << endl;
+    // Output: 4
+
+
+    // =========================================
+    // 6. DELETE (POP)
+    // =========================================
+
+    q.pop();  
+    // removes front element (2)
+    // [22,23,24]
+
+    cout << q.front() << endl;
+    // Output: 22
+
+
+    // =========================================
+    // 7. TRAVERSAL
+    // =========================================
+    // ⚠️ No iterators → only by popping
+
+    while(q.empty() == false){
+        cout << q.front() << " ";
+        q.pop();
+    }
+    // Output: 22 23 24
+    // queue becomes EMPTY
+
+
+    // =========================================
+    // 8. EMPTY
+    // =========================================
+
+    cout << q.empty();
+    // Output: 1 (true)
+
+
+    // =========================================
+    // 9. SWAP
+    // =========================================
+
+    queue<int> q1;
+    q1.push(1);
+    q1.push(2);
+    // q1 → [1,2]
+
+    queue<int> q2;
+    q2.push(100);
+    q2.push(200);
+    // q2 → [100,200]
+
+    swap(q1, q2);
+    // q1 → [100,200]
+    // q2 → [1,2]
+
+    // OR
+    // q1.swap(q2);  (same)
+
+
+    // =========================================
+    // 10. IMPORTANT POINTS
+    // =========================================
+
+    // ✔ push / emplace → insert at back
+    // ✔ pop → removes from front
+    // ✔ front → first element
+    // ✔ back → last element
+    // ✔ no indexing, no iterators
+    // ✔ traversal removes elements
+
+}
+void explainpriorityqueue(){
+
+    // =========================================
+    // 1. WHAT IS PRIORITY QUEUE
+    // =========================================
+    // priority_queue → stores elements in sorted priority
+    // by default → MAX HEAP
+    // largest element always at top
+
+
+    // =========================================
+    // 2. DECLARATION (MAX HEAP)
+    // =========================================
+
+    priority_queue<int> pq;
+
+
+    // =========================================
+    // 3. INSERTION
+    // =========================================
+
+    pq.push(5);
+    pq.push(2);
+
+    // pq.emplace(10);
+    // same as push → inserts element into heap
+
+    pq.push(8);
+    // elements arranged internally
+    // top = 10
+
+
+    // =========================================
+    // 4. ACCESS
+    // =========================================
+
+    cout << pq.top() << endl;
+    // Output: 10
+
+
+    // =========================================
+    // 5. DELETE (POP)
+    // =========================================
+
+    pq.pop();
+    // removes 10
+
+    cout << pq.top() << endl;
+    // Output: 8
+
+
+    // =========================================
+    // 6. SIZE
+    // =========================================
+
+    cout << pq.size() << endl;
+    // Output: 3
+
+
+    // =========================================
+    // 7. TRAVERSAL (MAX HEAP)
+    // =========================================
+
+    while(pq.empty() == false){
+        cout << pq.top() << " ";
+        pq.pop();
+    }
+    // Output: 8 5 2
+
+
+    // =========================================
+    // 8. MIN HEAP (SMALLEST ON TOP)
+    // =========================================
+
+    priority_queue<int, vector<int>, greater<int>> minpq;
+
+    minpq.push(5);
+    minpq.push(2);
+
+    // minpq.emplace(10);
+    // same as push
+
+    minpq.push(8);
+
+    cout << minpq.top() << endl;
+    // Output: 2
+
+
+    // =========================================
+    // 8.1 TRAVERSAL (MIN HEAP)
+    // =========================================
+
+    while(minpq.empty() == false){
+        cout << minpq.top() << " ";
+        minpq.pop();
+    }
+    // Output: 2 5 8 10
+
+
+    // =========================================
+    // 9. SWAP
+    // =========================================
+
+    priority_queue<int> a;
+    a.push(1);
+    a.push(3);
+
+    priority_queue<int> b;
+    b.push(100);
+    b.push(200);
+
+    swap(a, b);
+    // a → [200,100]
+    // b → [3,1]
+
+
+    // =========================================
+    // 10. IMPORTANT POINTS
+    // =========================================
+
+    // ✔ push / emplace → insert
+    // ✔ max heap → largest first
+    // ✔ min heap → smallest first
+    // ✔ no indexing, no iterators
+    // ✔ traversal removes elements
+
+}
+
 int main(){
     
- 
     return 0;
 }
