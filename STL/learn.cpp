@@ -853,7 +853,687 @@ void explainpriorityqueue(){
     // ✔ traversal removes elements
 
 }
+void explainset(){
 
+    // =========================================
+    // 1. WHAT IS SET
+    // =========================================
+    // set → stores UNIQUE elements in ASCENDING order
+
+    set<int> st;
+
+
+    // =========================================
+    // 2. INSERTION
+    // =========================================
+
+    st.insert(2);   // st.emplace(2)
+    st.insert(21);
+    st.insert(21);  // duplicate → ignored
+    st.insert(21);  // duplicate → ignored
+    st.insert(12);
+
+    // final set → {2,12,21}
+
+
+    // =========================================
+    // 3. TRAVERSAL
+    // =========================================
+
+    for(auto i : st){
+        cout << i << " ";
+    }
+    // Output: 2 12 21
+
+
+    // =========================================
+    // 4. FIND
+    // =========================================
+
+    auto it = st.find(12);   // iterator to element
+
+    if(it != st.end()){
+        cout << *it;
+    }
+    // Output: 12
+
+
+    // =========================================
+    // 5. COUNT
+    // =========================================
+
+    cout << st.count(21);
+    // Output: 1 (present)
+
+    cout << st.count(100);
+    // Output: 0 (not present)
+
+
+    // =========================================
+    // 6. ERASE (BY VALUE)
+    // =========================================
+
+    st.erase(21);
+    // removes 21 → {2,12}
+
+    for(auto i : st){
+        cout << i << " ";
+    }
+    // Output: 2 12
+
+
+    // =========================================
+    // 7. ERASE (BY ITERATOR)
+    // =========================================
+
+    auto it2 = st.begin();  
+    // points to 2
+
+    st.erase(it2);
+    // removes 2 → {12}
+
+    for(auto i : st){
+        cout << i << " ";
+    }
+    // Output: 12
+
+
+    // =========================================
+    // 8. ERASE (RANGE)
+    // =========================================
+
+    set<int> s = {1,2,3,4,5};
+
+    auto start = s.begin();   // 1
+    start++;                  // 2
+
+    s.erase(start, s.end());
+    // removes [2,3,4,5] → {1}
+
+
+    // =========================================
+    // 9. LOWER BOUND
+    // =========================================
+    // returns iterator to element >= given value
+
+    set<int> lb = {10,20,30};
+
+    auto it3 = lb.lower_bound(15);
+    cout << *it3;
+    // Output: 20
+
+    auto it4 = lb.lower_bound(30);
+    cout << *it4;
+    // Output: 30
+
+    auto it5 = lb.lower_bound(100);
+    if(it5 == lb.end()){
+        cout << "end";
+    }
+    // Output: end
+
+
+    // =========================================
+    // 10. UPPER BOUND
+    // =========================================
+    // returns iterator to element > given value
+
+    auto it6 = lb.upper_bound(20);
+    cout << *it6;
+    // Output: 30
+
+    auto it7 = lb.upper_bound(30);
+    if(it7 == lb.end()){
+        cout << "end";
+    }
+    // Output: end
+
+
+    // =========================================
+    // 11. SIZE & EMPTY
+    // =========================================
+
+    cout << st.size();
+    // number of elements
+
+    cout << st.empty();
+    // 1 → empty, 0 → not empty
+
+
+    // =========================================
+    // 12. IMPORTANT POINTS
+    // =========================================
+
+    // ✔ unique elements only
+    // ✔ sorted automatically
+    // ✔ no indexing → cannot use st[i]
+    // ✔ iterators allowed
+    // ✔ erase(start, end) → [start, end)
+    // ✔ operations → O(log n)
+
+}
+void explainmultiset(){
+
+    // =========================================
+    // 1. WHAT IS MULTISET
+    // =========================================
+    // multiset → allows DUPLICATES
+    // elements stored in ASCENDING order
+
+
+    // =========================================
+    // 2. DECLARATION
+    // =========================================
+
+    multiset<int> ms;
+
+
+    // =========================================
+    // 3. INSERTION
+    // =========================================
+
+    ms.insert(1);
+    ms.insert(1);
+    ms.insert(1);
+    ms.insert(1);
+    ms.insert(2);
+    ms.insert(0);
+    ms.insert(21);
+    ms.insert(21);
+
+    // final → {0,1,1,1,1,2,21,21}
+
+
+    // =========================================
+    // 4. TRAVERSAL
+    // =========================================
+
+    for(auto i : ms){
+        cout << i << " ";
+    }
+    // Output: 0 1 1 1 1 2 21 21
+
+
+    // =========================================
+    // 5. FIND
+    // =========================================
+
+    auto it = ms.find(1);
+    // returns iterator to FIRST occurrence of 1
+
+    if(it != ms.end()){
+        cout << *it;
+    }
+    // Output: 1
+
+
+    // =========================================
+    // 6. COUNT
+    // =========================================
+
+    cout << ms.count(1);
+    // Output: 4
+
+    cout << ms.count(21);
+    // Output: 2
+
+
+    // =========================================
+    // 7. ERASE (BY VALUE)
+    // =========================================
+
+    ms.erase(1);
+    // removes ALL occurrences of 1
+    // result → {0,2,21,21}
+
+
+    // =========================================
+    // 8. ERASE (BY ITERATOR)
+    // =========================================
+
+    auto it2 = ms.find(21);
+
+    ms.erase(it2);
+    // removes ONLY ONE occurrence of 21
+    // result → {0,2,21}
+
+
+    // =========================================
+    // 9. ERASE (RANGE)
+    // =========================================
+
+    multiset<int> s = {1,1,2,2,3,3};
+
+    auto start = s.begin();  // first 1
+    auto end = s.find(3);    // first 3
+
+    s.erase(start, end);
+    // removes [1,1,2,2]
+    // result → {3,3}
+
+
+    // =========================================
+    // 10. LOWER & UPPER BOUND
+    // =========================================
+
+    multiset<int> m = {1,1,2,2,3};
+
+    auto it3 = m.lower_bound(2);
+    cout << *it3;
+    // Output: 2 (first 2)
+
+    auto it4 = m.upper_bound(2);
+    cout << *it4;
+    // Output: 3
+
+
+    // =========================================
+    // 11. SIZE & EMPTY
+    // =========================================
+
+    cout << ms.size();
+    // number of elements
+
+    cout << ms.empty();
+    // 1 → empty, 0 → not empty
+
+
+    // =========================================
+    // 12. IMPORTANT POINTS
+    // =========================================
+
+    // ✔ duplicates allowed
+    // ✔ sorted automatically
+    // ✔ find() → first occurrence
+    // ✔ erase(value) → removes ALL occurrences
+    // ✔ erase(iterator) → removes ONE occurrence
+    // ✔ no indexing
+
+}
+void explainunorderedset(){
+
+    // =========================================
+    // 1. WHAT IS UNORDERED_SET
+    // =========================================
+    // unordered_set → stores UNIQUE elements
+    // ✔ no duplicates
+    // ✔ NO order (elements appear random)
+    // ✔ uses hashing
+
+
+    // =========================================
+    // 2. WHY WE USE UNORDERED_SET
+    // =========================================
+    // ✔ very fast operations
+    // ✔ insert / find / erase → O(1) average
+    // ✔ worst case → O(n) (rare)
+
+    // 👉 use when:
+    // - order is NOT required
+    // - need fast lookup
+
+
+    // =========================================
+    // 3. DECLARATION
+    // =========================================
+
+    unordered_set<int> st;
+
+
+    // =========================================
+    // 4. INSERTION
+    // =========================================
+
+    st.insert(1);
+    st.insert(2);
+    st.insert(1);   // duplicate → ignored
+    st.insert(11);
+    st.insert(11);  // duplicate → ignored
+    st.insert(12);
+    st.insert(12);
+    st.insert(12);
+
+    // final → {1,2,11,12} (order NOT fixed)
+
+
+    // =========================================
+    // 5. TRAVERSAL
+    // =========================================
+
+    for(auto x : st){
+        cout << x << " ";
+    }
+    // Output: random order (e.g. 12 1 11 2)
+
+
+    // =========================================
+    // 6. FIND
+    // =========================================
+
+    auto it = st.find(11);
+
+    if(it != st.end()){
+        cout << *it;
+    }
+    // Output: 11
+
+
+    // =========================================
+    // 7. COUNT
+    // =========================================
+
+    cout << st.count(11);
+    // Output: 1
+
+    cout << st.count(100);
+    // Output: 0
+
+
+    // =========================================
+    // 8. ERASE
+    // =========================================
+
+    st.erase(11);
+    // removes 11
+
+    for(auto x : st){
+        cout << x << " ";
+    }
+    // Output: elements without 11
+
+
+    // =========================================
+    // 9. SIZE & EMPTY
+    // =========================================
+
+    cout << st.size();
+    // number of elements
+
+    cout << st.empty();
+    // 1 → empty, 0 → not empty
+
+
+    // =========================================
+    // 10. IMPORTANT POINTS
+    // =========================================
+
+    // ✔ unique elements only
+    // ✔ no sorting
+    // ✔ faster than set (average O(1))
+    // ✔ no indexing
+    // ✔ no lower_bound / upper_bound
+
+}
+void explainmap(){
+
+    // =========================================
+    // 1. WHAT IS MAP
+    // =========================================
+    // map → stores data in KEY → VALUE pair
+    // ✔ keys are UNIQUE
+    // ✔ values can repeat
+    // ✔ sorted in ascending order of keys
+
+
+    // =========================================
+    // 2. DECLARATION
+    // =========================================
+
+    map<int, string> mp;
+
+
+    // =========================================
+    // 3. INSERTION
+    // =========================================
+
+    mp[1] = "abc";
+
+    // mp[1] = "vik";
+    // updates value for same key → now {1:vik}
+
+    mp[2] = "bcd";
+    mp[3] = "cat";
+
+    mp.insert({4, "Raj"});
+    // mp.emplace(5, "Ram");
+
+    // final → {1:abc, 2:bcd, 3:cat, 4:Raj}
+
+
+    // =========================================
+    // 4. TRAVERSAL
+    // =========================================
+
+    for(auto i : mp){
+        cout << i.first << "->" << i.second << endl;
+    }
+    /*
+    Output:
+    1->abc
+    2->bcd
+    3->cat
+    4->Raj
+    */
+
+
+    // =========================================
+    // 5. ACCESS
+    // =========================================
+
+    cout << mp[1] << endl;
+    // Output: abc
+
+    cout << mp[10] << endl;
+    // Output: "" (empty string)
+    // map becomes → {1:abc,2:bcd,3:cat,4:Raj,10:""}
+
+
+    // =========================================
+    // 6. FIND
+    // =========================================
+
+    auto it = mp.find(4);
+
+    if(it != mp.end()){
+        cout << it->first << "->" << it->second << endl;
+    }
+    // Output: 4->Raj
+
+    // if not found:
+    // mp.find(100) → returns mp.end()
+
+
+    // =========================================
+    // 7. COUNT
+    // =========================================
+
+    cout << mp.count(2) << endl;
+    // Output: 1
+
+    cout << mp.count(100) << endl;
+    // Output: 0
+
+
+    // =========================================
+    // 8. ERASE
+    // =========================================
+
+    mp.erase(2);
+    // map → {1:abc,3:cat,4:Raj,10:""}
+
+    auto it2 = mp.find(3);
+    mp.erase(it2);
+    // map → {1:abc,4:Raj,10:""}
+
+
+    // =========================================
+    // 9. SIZE & EMPTY
+    // =========================================
+
+    cout << mp.size() << endl;
+    // Output: 3
+
+    cout << mp.empty() << endl;
+    // Output: 0 (not empty)
+
+
+    // =========================================
+    // 10. LOWER & UPPER BOUND
+    // =========================================
+
+    // map now → {1,4,10}
+
+    auto it3 = mp.lower_bound(2);
+    cout << it3->first << endl;
+    // Output: 4  (first key ≥ 2)
+
+    auto it4 = mp.upper_bound(4);
+    cout << it4->first << endl;
+    // Output: 10 (first key > 4)
+
+
+    // =========================================
+    // 11. IMPORTANT POINTS
+    // =========================================
+
+    // ✔ keys are unique
+    // ✔ sorted by keys
+    // ✔ mp[key] → access/update (creates if not present)
+    // ✔ find() → iterator
+    // ✔ insert/emplace → add
+    // ✔ operations → O(log n)
+
+}
+void explainunorderedmap(){
+
+    // =========================================
+    // 1. WHAT IS UNORDERED_MAP
+    // =========================================
+    // unordered_map → stores KEY → VALUE pairs
+    // ✔ keys are UNIQUE
+    // ✔ NO order (random order)
+    // ✔ uses hashing → fast operations
+
+
+    // =========================================
+    // 2. WHY WE USE UNORDERED_MAP
+    // =========================================
+    // ✔ very fast → O(1) average
+    // ✔ use when order is NOT required
+    // ✔ best for frequency/count problems
+
+
+    // =========================================
+    // 3. DECLARATION
+    // =========================================
+
+    unordered_map<int, string> mp;
+
+
+    // =========================================
+    // 4. INSERTION
+    // =========================================
+
+    mp.insert({4, "Raj"});
+
+    mp[1] = "abc";
+    mp[2] = "bcd";
+    mp[3] = "cat";
+
+    // mp[1] = "new";  // updates value
+
+    // final → keys: {1,2,3,4} (order NOT fixed)
+
+
+    // =========================================
+    // 5. TRAVERSAL
+    // =========================================
+
+    for(auto it : mp){
+        cout << it.first << "->" << it.second << endl;
+    }
+    /*
+    Output: order random (example)
+    3->cat
+    1->abc
+    4->Raj
+    2->bcd
+    */
+
+
+    // =========================================
+    // 6. ACCESS
+    // =========================================
+
+    cout << mp[1] << endl;
+    // Output: abc
+
+    cout << mp[10] << endl;
+    // Output: "" (default string)
+    // creates new entry → {10:""}
+
+
+    // =========================================
+    // 7. FIND
+    // =========================================
+
+    auto it2 = mp.find(2);
+
+    if(it2 != mp.end()){
+        cout << it2->first << "->" << it2->second << endl;
+    }
+    // Output: 2->bcd
+
+
+    // =========================================
+    // 8. COUNT
+    // =========================================
+
+    cout << mp.count(3) << endl;
+    // Output: 1
+
+    cout << mp.count(100) << endl;
+    // Output: 0
+
+
+    // =========================================
+    // 9. ERASE
+    // =========================================
+
+    mp.erase(2);
+    // removes key 2
+
+    auto it3 = mp.find(3);
+    mp.erase(it3);
+    // removes key 3
+
+
+    // =========================================
+    // 10. SIZE & EMPTY
+    // =========================================
+
+    cout << mp.size() << endl;
+    // number of elements
+
+    cout << mp.empty() << endl;
+    // 1 → empty, 0 → not empty
+
+
+    // =========================================
+    // 11. IMPORTANT POINTS
+    // =========================================
+
+    // ✔ keys are unique
+    // ✔ no sorting (random order)
+    // ✔ mp[key] → access/update (creates if not present)
+    // ✔ find() → safer check
+    // ✔ average O(1), worst O(n)
+    // ✔ no lower_bound / upper_bound
+
+}
+void explainmultimap(){
+    
+}
 int main(){
     
     return 0;
