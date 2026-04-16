@@ -1532,7 +1532,710 @@ void explainunorderedmap(){
 
 }
 void explainmultimap(){
-    
+
+    // =========================================
+    // 1. WHAT IS MULTIMAP
+    // =========================================
+    // multimap → stores KEY → VALUE pairs
+    // ✔ keys can be DUPLICATE
+    // ✔ values can repeat
+    // ✔ sorted in ascending order of keys
+
+
+    // =========================================
+    // 2. DECLARATION
+    // =========================================
+
+    multimap<int, char> mp;
+
+
+    // =========================================
+    // 3. INSERTION
+    // =========================================
+
+    mp.insert({3,'b'});
+    mp.insert({1,'a'});
+    mp.insert({1,'b'});
+    mp.insert({1,'a'});
+    mp.insert({2,'a'});
+    mp.insert({2,'a'});
+    mp.insert({2,'b'});
+
+    // final (sorted by keys):
+    // {1:a, 1:b, 1:a, 2:a, 2:a, 2:b, 3:b}
+
+
+    // =========================================
+    // 4. TRAVERSAL
+    // =========================================
+
+    for(auto it : mp){
+        cout << it.first << "->" << it.second << " ";
+    }
+    /*
+    Output:
+    1->a 1->b 1->a 2->a 2->a 2->b 3->b
+    */
+
+
+    // =========================================
+    // 5. FIND
+    // =========================================
+
+    auto it1 = mp.find(1);
+    // returns iterator to FIRST occurrence of key=1
+
+    if(it1 != mp.end()){
+        cout << it1->first << "->" << it1->second << endl;
+    }
+    // Output: 1->a
+
+
+    // =========================================
+    // 6. COUNT
+    // =========================================
+
+    cout << mp.count(1) << endl;
+    // Output: 3
+
+    cout << mp.count(2) << endl;
+    // Output: 3
+
+
+    // =========================================
+    // 7. ERASE
+    // =========================================
+
+    mp.erase(2);
+    // removes ALL entries with key=2
+
+    // map becomes:
+    // {1:a,1:b,1:a,3:b}
+
+
+    // =========================================
+    // 8. RANGE (equal_range)
+    // =========================================
+    // returns range of all elements with given key
+
+    multimap<int,char> mp2;
+
+    mp2.insert({1,'a'});
+    mp2.insert({1,'b'});
+    mp2.insert({1,'c'});
+    mp2.insert({2,'x'});
+
+    auto it = mp2.equal_range(1);
+
+    for(auto i = it.first; i != it.second; i++){
+        cout << i->first << "->" << i->second << endl;
+    }
+    /*
+    Output:
+    1->a
+    1->b
+    1->c
+    */
+
+
+    // =========================================
+    // 9. SIZE & EMPTY
+    // =========================================
+
+    cout << mp.size() << endl;
+    // number of elements
+
+    cout << mp.empty() << endl;
+    // 1 → empty, 0 → not empty
+
+
+    // =========================================
+    // 10. IMPORTANT POINTS
+    // =========================================
+
+    // ✔ duplicate keys allowed
+    // ✔ sorted by keys
+    // ✔ insert() only (no mp[key])
+    // ✔ find() → first occurrence
+    // ✔ erase(key) → removes all entries
+    // ✔ equal_range → get all same keys
+
+}
+void explainsort(){
+
+    // =========================================
+    // 1. SORT ARRAY
+    // =========================================
+
+    int arr[5] = {6,2,1,7,8};
+
+    sort(arr, arr+5);
+    // sorts from index 0 to 4 (entire array)
+
+    for(int i = 0; i < 5; i++){
+        cout << arr[i] << " ";
+    }
+    // Output: 1 2 6 7 8
+
+
+    // =========================================
+    // 2. SORT PART OF ARRAY
+    // =========================================
+
+    int arr2[5] = {6,2,1,7,8};
+
+    sort(arr2+1, arr2+4);
+    // sorts index [1,3]
+    // range = [start, end)
+
+    for(int i = 0; i < 5; i++){
+        cout << arr2[i] << " ";
+    }
+    // Output: 6 1 2 7 8
+
+
+    // =========================================
+    // 3. SORT VECTOR
+    // =========================================
+
+    vector<int> vec = {5,7,8,8,1};
+
+    sort(vec.begin(), vec.end());
+
+    for(auto i : vec){
+        cout << i << " ";
+    }
+    // Output: 1 5 7 8 8
+
+
+    // =========================================
+    // 4. SORT PART OF VECTOR
+    // =========================================
+
+    vector<int> vec2 = {5,7,8,8,1};
+
+    sort(vec2.begin()+1, vec2.begin()+4);
+    // sorts index [1,3]
+
+    for(auto i : vec2){
+        cout << i << " ";
+    }
+    // Output: 5 7 8 8 1 → becomes 5 7 8 8 1? ❌ check carefully
+
+    // actual:
+    // original → 5 7 8 8 1
+    // sorting [7,8,8] → same
+    // Output: 5 7 8 8 1
+
+
+    // =========================================
+    // 5. DESCENDING ORDER
+    // =========================================
+
+    vector<int> v = {5,2,9,1};
+
+    sort(v.begin(), v.end(), greater<int>());
+
+    for(auto i : v){
+        cout << i << " ";
+    }
+    // Output: 9 5 2 1
+
+
+    // =========================================
+    // 6. IMPORTANT POINTS
+    // =========================================
+
+    // ✔ sort(start, end)
+    // ✔ range → [start, end)
+    // ✔ default → ascending
+    // ✔ use greater<int>() → descending
+    // ✔ works in O(n log n)
+
+}
+void explainaccumulate(){
+
+    // =========================================
+    // 1. WHAT IS ACCUMULATE
+    // =========================================
+    // accumulate → used to calculate sum of elements
+    // syntax:
+    // accumulate(start, end, initial_value)
+
+
+    // =========================================
+    // 2. ARRAY EXAMPLE
+    // =========================================
+
+    int arr[5] = {6,2,1,7,0};
+
+    cout << accumulate(arr, arr+5, 0) << endl;
+    // (6+2+1+7+0) + 0 = 16
+    // Output: 16
+
+
+    // =========================================
+    // 3. WHY INITIAL VALUE MATTERS
+    // =========================================
+
+    cout << accumulate(arr, arr+5, 5) << endl;
+    // (6+2+1+7+0) + 5 = 21
+    // Output: 21
+
+
+    // =========================================
+    // 4. VECTOR EXAMPLE
+    // =========================================
+
+    vector<int> v = {1,2,3,4};
+
+    cout << accumulate(v.begin(), v.end(), 0) << endl;
+    // Output: 10
+
+
+    // =========================================
+    // 5. IMPORTANT POINTS
+    // =========================================
+
+    // ✔ range → [start, end)
+    // ✔ initial value added to sum
+    // ✔ works on array & vector
+    // ✔ header → #include <numeric>
+
+}
+void explaincount(){
+
+    // =========================================
+    // 1. WHAT IS COUNT
+    // =========================================
+    // count → counts how many times a value appears
+    // syntax:
+    // count(start, end, value)
+
+
+    // =========================================
+    // 2. ARRAY EXAMPLE
+    // =========================================
+
+    int arr[5] = {6,2,1,1,0};
+    int num = 1;
+
+    cout << count(arr, arr+5, num) << endl;
+    // elements: 6 2 1 1 0
+    // count of 1 → 2
+    // Output: 2
+
+
+    // =========================================
+    // 3. VALUE NOT PRESENT
+    // =========================================
+
+    cout << count(arr, arr+5, 10) << endl;
+    // Output: 0
+
+
+    // =========================================
+    // 4. VECTOR EXAMPLE
+    // =========================================
+
+    vector<int> v = {1,2,3,1,1};
+
+    cout << count(v.begin(), v.end(), 1) << endl;
+    // Output: 3
+
+
+    // =========================================
+    // 5. IMPORTANT POINTS
+    // =========================================
+
+    // ✔ range → [start, end)
+    // ✔ returns number of occurrences
+    // ✔ works on array & vector
+    // ✔ header → #include <algorithm>
+
+}
+void explainfind(){
+
+    // =========================================
+    // 1. WHAT IS FIND
+    // =========================================
+    // find → returns iterator to first occurrence
+    // if not found → returns end
+
+
+    // =========================================
+    // 2. ARRAY EXAMPLE
+    // =========================================
+
+    int arr[5] = {6,2,1,1,0};
+
+    auto it = find(arr, arr+5, 1);
+
+    if(it != arr+5){
+        cout << *it << endl;
+    }
+    // Output: 1
+
+
+    // =========================================
+    // 3. VALUE NOT FOUND
+    // =========================================
+
+    auto it2 = find(arr, arr+5, 8);
+
+    if(it2 == arr+5){
+        cout << "not found" << endl;
+    }
+    // Output: not found
+
+
+    // =========================================
+    // 4. VECTOR EXAMPLE
+    // =========================================
+
+    vector<int> v = {5,2,7,1};
+
+    auto it3 = find(v.begin(), v.end(), 7);
+
+    if(it3 != v.end()){
+        cout << *it3 << endl;
+    }
+    // Output: 7
+
+
+    // =========================================
+    // 5. IMPORTANT POINTS
+    // =========================================
+
+    // ✔ range → [start, end)
+    // ✔ returns iterator
+    // ✔ if not found → returns end
+    // ✔ always check before using *it
+
+}
+void explainnextpermutation(){
+
+    string str = "abc";
+    // string str = "bca";
+
+    do{
+        cout << str << endl;
+    }while(next_permutation(str.begin(), str.end()));
+
+    /*
+    if str = "abc" (sorted):
+    Output:
+    abc
+    acb
+    bac
+    bca
+    cab
+    cba
+
+    // gives ALL permutations in sorted order
+    */
+
+
+    /*
+    if str = "bca":
+    Output:
+    bca
+    cab
+    cba
+
+    // starts from current string
+    // does NOT go back to abc
+    */
+
+
+//  do{
+//         cout<<str<<endl;
+//     }while(next_permutation(str.begin(),str.begin()+2));
+
+    /*
+    partial range (first 2 letters only)
+
+    if str = "abc":
+    Output:
+    abc
+    bac
+
+    // only first 2 letters change
+    // last letter stays same
+    */
+
+
+    // IMPORTANT:
+    // ✔ next_permutation → next bigger arrangement
+    // ✔ returns false when last reached
+    // ✔ last (cba) → next becomes abc again
+}
+void explainpermutation(){
+
+    // =========================================
+    // 1. NEXT PERMUTATION
+    // =========================================
+
+    string str = "abc";
+
+    do{
+        cout << str << endl;
+    }while(next_permutation(str.begin(), str.end()));
+
+    /*
+    Output:
+    abc
+    acb
+    bac
+    bca
+    cab
+    cba
+
+    // starts from smallest
+    // moves forward (next arrangement)
+    // ends at largest (cba)
+    */
+
+
+    // =========================================
+    // 2. PREV PERMUTATION
+    // =========================================
+
+    string s = "cba";
+
+    do{
+        cout << s << endl;
+    }while(prev_permutation(s.begin(), s.end()));
+
+    /*
+    Output:
+    cba
+    cab
+    bca
+    bac
+    acb
+    abc
+
+    // starts from largest
+    // moves backward (previous arrangement)
+    // ends at smallest (abc)
+    */
+
+
+    // =========================================
+    // 3. SIMPLE UNDERSTANDING
+    // =========================================
+
+    // next_permutation → forward direction
+    // abc → acb → bac → ... → cba
+
+    // prev_permutation → backward direction
+    // cba → cab → bca → ... → abc
+
+
+    // =========================================
+    // 4. IMPORTANT POINTS
+    // =========================================
+
+    // ✔ next → next bigger arrangement
+    // ✔ prev → next smaller arrangement
+    // ✔ use do-while to print all
+    // ✔ start sorted → full permutations
+
+}
+void explainmaxelement(){
+
+    int arr[] = {7,6,5,10,9};
+
+    auto it = max_element(arr, arr+5);
+    // returns iterator to largest element
+
+    cout << *it << endl;
+    // Output: 10
+
+
+    // =========================================
+    // MIN ELEMENT
+    // =========================================
+
+    auto it2 = min_element(arr, arr+5);
+    // returns iterator to smallest element
+
+    cout << *it2 << endl;
+    // Output: 5
+
+
+    // =========================================
+    // VECTOR EXAMPLE
+    // =========================================
+
+    vector<int> v = {4,2,9,1};
+
+    auto it3 = max_element(v.begin(), v.end());
+
+    cout << *it3 << endl;
+    // Output: 9
+
+
+    // =========================================
+    // IMPORTANT POINTS
+    // =========================================
+
+    // ✔ returns iterator (not value)
+    // ✔ use *it to get value
+    // ✔ range → [start, end)
+    // ✔ header → <algorithm>
+
+}
+void explainreverse(){
+
+    int arr[5] = {7,6,5,10,9};
+
+    reverse(arr, arr+5);
+    // reverses elements in range [0,4]
+
+    for(int i = 0; i < 5; i++){
+        cout << arr[i] << " ";
+    }
+    // Output: 9 10 5 6 7
+
+
+    // =========================================
+    // PARTIAL REVERSE
+    // =========================================
+
+    int arr2[5] = {7,6,5,10,9};
+
+    reverse(arr2+1, arr2+4);
+    // reverses index [1,3]
+
+    for(int i = 0; i < 5; i++){
+        cout << arr2[i] << " ";
+    }
+    // Output: 7 10 5 6 9
+
+
+    // =========================================
+    // VECTOR EXAMPLE
+    // =========================================
+
+    vector<int> v = {1,2,3,4};
+
+    reverse(v.begin(), v.end());
+
+    for(auto i : v){
+        cout << i << " ";
+    }
+    // Output: 4 3 2 1
+
+
+    // =========================================
+    // IMPORTANT POINTS
+    // =========================================
+
+    // ✔ reverse(start, end)
+    // ✔ range → [start, end)
+    // ✔ works on array & vector
+    // ✔ header → <algorithm>
+
+}
+void explainpow(){
+
+    // pow(a,b) → a raised to power b
+
+    cout << pow(2,3) << endl;
+    // Output: 8
+
+    cout << pow(5,2) << endl;
+    // Output: 25
+
+    cout << pow(10,0) << endl;
+    // Output: 1
+
+
+    // =========================================
+    // IMPORTANT POINTS
+    // =========================================
+
+    // ✔ pow(a,b) → a^b
+    // ✔ works directly
+    // ✔ header → <cmath>
+
+}
+// el1, el2
+// tells true if el1 is before el2
+// tells false if el1 has to be after el2
+
+bool internalcomparator(int el1,int el2){
+    if(el1 < el2){
+        return false;
+    }
+    return true;
+
+    // same as → return el1 > el2;
+    // descending order
+}
+
+
+// pair comparator
+// sort by second (descending)
+// if second same → sort by first (ascending)
+
+bool internalcomparator(pair<int,int> el1, pair<int,int> el2){
+
+    if(el1.second > el2.second) return true;
+    if(el1.second < el2.second) return false;
+
+    // if second equal
+    if(el1.first < el2.first) return true;
+
+    return false;
+}
+
+
+void explaincomparator(){
+
+    // el1 and el2 are compared
+    // comparator decides which comes first
+
+
+    // =========================================
+    // ARRAY
+    // =========================================
+
+    int arr[] = {5,6,1,2};
+
+    // default sort
+    // sort(arr, arr+4);
+    // Output: 1 2 5 6
+
+    // custom sort (descending)
+    // sort(arr, arr+4, internalcomparator);
+
+    // for(int i=0;i<4;i++){
+    //     cout << arr[i] << " ";
+    // }
+    // Output: 6 5 2 1
+
+
+    // =========================================
+    // PAIR
+    // =========================================
+
+    pair<int,int> arr2[] = {{1,6},{1,5},{2,6},{2,9},{3,9}};
+
+    // sort by second descending
+    // if equal → first ascending
+
+    // sort(arr2, arr2+5, internalcomparator);
+
+    // for(int i=0;i<5;i++){
+    //     cout << "{" << arr2[i].first << "," << arr2[i].second << "} ";
+    // }
+
+    // Output:
+    // {2,9} {3,9} {1,6} {2,6} {1,5}
+
 }
 int main(){
     
